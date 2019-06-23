@@ -1,14 +1,14 @@
 ---
 - name: Create the microservice directory
   file:
-    path: /opt/microservice
+    path: '{{ project_path }}'
     state: directory
     mode: '0755'
 
 - name: Upload microservice files
   template:
     src: '{{ item.src }}'
-    dest: /opt/microservice
+    dest: '{{ project_path }}'
   with_filetree: '../templates'
   when: item.state == 'file'
 
@@ -33,18 +33,18 @@
 
 - name: Install pip requirements
   pip:
-    requirements: "/opt/microservice/requirements.txt"
-    virtualenv: "/opt/microservice/env"
+    requirements: '{{ project_path }}/requirements.txt'
+    virtualenv: '{{ project_path }}/env'
     virtualenv_python: python3
 
 - name: Check ownership of project directory
   stat:
-    path: "{{ project_path }}"
+    path: '{{ project_path }}'
   register: project_path_stats
 
 - name: Set owner and group on project directory
   file:
-    path: "{{ project_path }}"
+    path: '{{ project_path }}'
     owner: www-data
     group: www-data
     recurse: true

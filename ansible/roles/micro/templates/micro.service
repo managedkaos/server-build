@@ -5,9 +5,9 @@ After=network.target
 [Service]
 User=www-data
 Group=www-data
-WorkingDirectory=/opt/microservice
-Environment="PATH=/opt/microservice/env/bin"
-ExecStart=/opt/microservice/env/bin/uwsgi --ini /opt/microservice/micro.ini
+WorkingDirectory={{ project_path }}
+Environment="PATH={{ project_path }}/env/bin"
+ExecStart={{ project_path }}/env/bin/uwsgi --ini {{ project_path }}/micro.ini
 
 [Install]
 WantedBy=multi-user.target

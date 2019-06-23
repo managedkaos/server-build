@@ -5,7 +5,7 @@ micro = Flask(__name__)
 
 @micro.route("/hello")
 def hello():
-    process = subprocess.Popen(['/usr/bin/Rscript', '/opt/microservice/hello.r'],
+    process = subprocess.Popen(['/usr/bin/Rscript', '{{ project_path }}/hello.r'],
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 stdin=subprocess.PIPE)

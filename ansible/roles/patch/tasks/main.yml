@@ -1,0 +1,15 @@
+---
+- name: Set timezone to America/Los_Angeles
+  timezone:
+    name: America/Los_Angeles
+
+- name: Upgrade all packages to the latest version
+  apt:
+    name: "*"
+    state: latest
+    force_apt_get: True
+    autoclean: yes
+    autoremove: yes
+    only_upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400

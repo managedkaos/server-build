@@ -12,7 +12,7 @@ lint: $(STACKNAME).py
 clean:
 	@rm $(STACKNAME).yml || echo "All clean! :D"
 
-stack: $(STACKNAME).yml
+create-stack: $(STACKNAME).yml
 	@$(AWS) cloudformation create-stack \
 		--stack-name $(STACKNAME) \
 		--template-body file://$(STACKNAME).yml \

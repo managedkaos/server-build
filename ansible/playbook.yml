@@ -1,0 +1,7 @@
+---
+- hosts: server
+  gather_facts: false
+  roles:
+      - role: patch
+        tags: patch
+

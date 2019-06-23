@@ -7,7 +7,6 @@
     group: www-data
     mode: '0755'
 
-
 - name: Upload microservice files
   template:
     src: '{{ item.src }}'
@@ -53,12 +52,6 @@
     group: www-data
     recurse: true
   when: project_path_stats.stat.pw_name != 'www-data'
-
-- name: Restart the micro service
-  systemd:
-    name: micro
-    enabled: yes
-    state: restarted
 
 - name: Restart nginx
   systemd:

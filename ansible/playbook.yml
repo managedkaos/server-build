@@ -4,6 +4,8 @@
   roles:
       - role: patch
         tags: patch
+      - role: apache2
+        tags: apache2
       - role: nginx
         tags: nginx
       - role: rbase

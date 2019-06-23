@@ -4,4 +4,10 @@
   roles:
       - role: patch
         tags: patch
+      - role: nginx
+        tags: nginx
+      - role: rbase
+        tags: rbase
+      - role: micro
+        tags: micro
 

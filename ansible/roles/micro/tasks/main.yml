@@ -1,0 +1,31 @@
+---
+- name: Create the microservice directory
+  file:
+    path: /opt/microservice
+    state: directory
+    mode: '0755'
+
+- name: Upload microservice requirements
+  template:
+    src: requirements.txt
+    dest: /opt/microservice/requirements.txt
+
+- name: Upload microservice script
+  template:
+    src: micro.py
+    dest: /opt/microservice/micro.py
+
+- name: Install pip3
+  apt:
+    name: python3-pip
+
+- name: Install virtualenv
+  pip:
+    name: virtualenv
+    executable: pip3
+
+- name: Install pip requirements
+  pip:
+    requirements: "/opt/microservice/requirements.txt"
+    virtualenv: "/opt/microservice/env"
+    virtualenv_python: python3

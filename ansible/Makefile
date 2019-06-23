@@ -1,4 +1,4 @@
-TAGS = patch nginx rscript
+TAGS = patch nginx rbase micro
 
 playbook:
 	ansible-playbook playbook.yml --verbose

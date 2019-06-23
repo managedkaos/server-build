@@ -1,0 +1,5 @@
+ansible
+awscli
+boto3
+pylint
+troposphere

@@ -1,0 +1,11 @@
+[server]
+ec2-52-34-37-70.us-west-2.compute.amazonaws.com
+
+[all:vars]
+ansible_become=yes
+ansible_private_key_file=~/.ssh/server-stack.pem
+ansible_python_interpreter=/usr/bin/python3
+ansible_user=ubuntu
+aws_region=us-west-2
+repository=''
+repository_key=''

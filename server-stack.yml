@@ -1,0 +1,119 @@
+Description: Server Stack
+Mappings:
+  RegionMap:
+    ap-northeast-1:
+      ami: ami-03a90fe15b63befea
+    ap-northeast-2:
+      ami: ami-05daa9d0230f30d79
+    ap-south-1:
+      ami: ami-00b2a5e29f669c903
+    ap-southeast-1:
+      ami: ami-07ed1f021e2eea7cb
+    ap-southeast-2:
+      ami: ami-068e6346d66ed62c8
+    ca-central-1:
+      ami: ami-013d2a414e834a144
+    eu-central-1:
+      ami: ami-00aa61be0e9a8f948
+    eu-north-1:
+      ami: ami-a536bedb
+    eu-west-1:
+      ami: ami-0c17a2bccea3e36f9
+    eu-west-2:
+      ami: ami-02369579484abae2e
+    eu-west-3:
+      ami: ami-0d8581d2794d7df68
+    sa-east-1:
+      ami: ami-0c04bf4cfbf3e9dbe
+    us-east-1:
+      ami: ami-0dd925351e231e8c7
+    us-east-2:
+      ami: ami-06cb7cbcc0e8e90e8
+    us-west-1:
+      ami: ami-0d8e4e7b60cd5f225
+    us-west-2:
+      ami: ami-06ad92f74f2c20787
+Outputs:
+  InstanceDnsName:
+    Description: PublicDnsName
+    Value: !GetAtt 'Instance.PublicDnsName'
+Parameters:
+  KeyName:
+    ConstraintDescription: An existing EC2 KeyPair.
+    Description: An existing EC2 KeyPair.
+    Type: AWS::EC2::KeyPair::KeyName
+Resources:
+  EC2SecurityGroup:
+    Properties:
+      GroupDescription: EC2 Security Group
+      SecurityGroupIngress:
+        - CidrIp: '0.0.0.0/0'
+          Description: SSH
+          FromPort: '22'
+          IpProtocol: tcp
+          ToPort: '22'
+        - CidrIp: '0.0.0.0/0'
+          Description: HTTP
+          FromPort: '80'
+          IpProtocol: tcp
+          ToPort: '80'
+        - CidrIp: '0.0.0.0/0'
+          Description: HTTPS
+          FromPort: '443'
+          IpProtocol: tcp
+          ToPort: '443'
+      Tags:
+        - Key: Name
+          Value: !Ref 'AWS::StackName'
+    Type: AWS::EC2::SecurityGroup
+  ElasticIP:
+    Properties:
+      Domain: vpc
+      InstanceId: !Ref 'Instance'
+    Type: AWS::EC2::EIP
+  Instance:
+    CreationPolicy:
+      ResourceSignal:
+        Timeout: PT15M
+    Metadata:
+      AWS::CloudFormation::Init:
+        config:
+          files:
+            /tmp/instance.txt:
+              content: !Ref 'AWS::StackName'
+              group: root
+              mode: '000644'
+              owner: root
+    Properties:
+      ImageId: !FindInMap
+        - RegionMap
+        - !Ref 'AWS::Region'
+        - ami
+      InstanceType: t3.micro
+      KeyName: !Ref 'KeyName'
+      SecurityGroups:
+        - !Ref 'EC2SecurityGroup'
+      Tags:
+        - Key: Name
+          Value: !Ref 'AWS::StackName'
+      UserData: !Base64
+        Fn::Join:
+          - ''
+          - - "#!/bin/bash -x\n"
+            - "exec > /tmp/user-data.log 2>&1\n"
+            - "unset UCF_FORCE_CONFFOLD\n"
+            - "export UCF_FORCE_CONFFNEW=YES\n"
+            - "ucf --purge /boot/grub/menu.lst\n"
+            - "export DEBIAN_FRONTEND=noninteractive\n"
+            - "apt-get update\n"
+            - "apt-get -o Dpkg::Options::=\"--force-confnew\" --force-yes -fuy upgrade\n"
+            - "apt-get install -y python-pip\n"
+            - "pip install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz\n"
+            - "# Signal Cloudformation when set up is complete\n"
+            - /usr/local/bin/cfn-signal -e $? --resource=Instance --region=
+            - !Ref 'AWS::Region'
+            - ' --stack='
+            - !Ref 'AWS::StackName'
+            - "\n"
+    Type: AWS::EC2::Instance
+

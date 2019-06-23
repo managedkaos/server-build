@@ -3,3 +3,5 @@ sayHello <- function(){
 }
 
 sayHello()
+s <- Sys.getenv()
+s

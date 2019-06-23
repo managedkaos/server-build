@@ -10,15 +10,15 @@
     repo: deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/
     state: present
 
-- name: Update cache if its more than one day old
-  apt:
-    update_cache: yes
-    cache_valid_time: 86400
-
 - name: Install R-base
   apt:
     name:
       - r-base
       - r-base-core
     state: latest
+    autoclean: yes
+    autoremove: yes
+    only_upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400
 

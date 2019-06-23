@@ -9,3 +9,4 @@ ansible_user=ubuntu
 aws_region=us-west-2
 repository=''
 repository_key=''
+project_path = /opt/microservice

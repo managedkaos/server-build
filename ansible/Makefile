@@ -9,5 +9,5 @@ list-tasks:
 $(TAGS) :
 	ansible-playbook playbook.yml --tags=$@
 
-.PHONY: all list-tasks patch solr apache2 nginx sslcert users awscli miramax_com pip check_site
+.PHONY: playbook list-tasks $(TAGS)
 

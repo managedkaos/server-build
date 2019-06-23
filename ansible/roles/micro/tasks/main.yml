@@ -5,15 +5,22 @@
     state: directory
     mode: '0755'
 
-- name: Upload microservice requirements
+- name: Upload microservice files
   template:
-    src: requirements.txt
-    dest: /opt/microservice/requirements.txt
+    src: '{{ item.src }}'
+    dest: /opt/microservice
+  with_filetree: '../templates'
+  when: item.state == 'file'
 
-- name: Upload microservice script
+- name: Upload systemd config
   template:
-    src: micro.py
-    dest: /opt/microservice/micro.py
+    src: micro.service
+    dest: /etc/systemd/system
+
+- name: Upload nginx config
+  template:
+    src: micro.conf
+    dest: /etc/nginx/sites-enabled
 
 - name: Install pip3
   apt:
@@ -29,3 +36,28 @@
     requirements: "/opt/microservice/requirements.txt"
     virtualenv: "/opt/microservice/env"
     virtualenv_python: python3
+
+- name: Check ownership of project directory
+  stat:
+    path: "{{ project_path }}"
+  register: project_path_stats
+
+- name: Set owner and group on project directory
+  file:
+    path: "{{ project_path }}"
+    owner: www-data
+    group: www-data
+    recurse: true
+  when: project_path_stats.stat.pw_name != 'www-data'
+
+- name: Restart the micro service
+  systemd:
+    name: micro
+    enabled: yes
+    state: restarted
+
+- name: Restart nginx
+  systemd:
+    name: nginx
+    enabled: yes
+    state: restarted

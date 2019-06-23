@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance for the microservice
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/microservice
+Environment="PATH=/opt/microservice/env/bin"
+ExecStart=/opt/microservice/env/bin/uwsgi --ini /opt/microservice/micro.ini
+
+[Install]
+WantedBy=multi-user.target

@@ -1,7 +1,7 @@
 ---
 - name: Install apache2
   apt:
-    name: ['apache2', 'libapache2-mod-wsgi']
+    name: ['apache2', 'libapache2-mod-wsgi-py3']
     state: latest
 
 - name: Change apache2 ports from 80 to 8080

@@ -1,4 +1,4 @@
-from micro import micro
+from micro import micro as application
 
 if __name__ == "__main__":
-    micro.run()
+    application.run()

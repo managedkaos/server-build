@@ -14,15 +14,10 @@
   with_filetree: '../templates'
   when: item.state == 'file'
 
-- name: Upload systemd config
-  template:
-    src: micro.service
-    dest: /etc/systemd/system
-
 - name: Upload nginx config
   template:
     src: micro.nginx.conf
-    dest: /etc/nginx/sites-enabled
+    dest: /etc/nginx/sites-available/default
 
 - name: Install pip3
   apt:
@@ -56,5 +51,11 @@
 - name: Restart nginx
   systemd:
     name: nginx
+    enabled: yes
+    state: restarted
+
+- name: Restart apache2
+  systemd:
+    name: apache2
     enabled: yes
     state: restarted

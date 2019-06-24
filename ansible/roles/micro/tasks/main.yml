@@ -21,7 +21,7 @@
 
 - name: Upload nginx config
   template:
-    src: micro.conf
+    src: micro.nginx.conf
     dest: /etc/nginx/sites-enabled
 
 - name: Install pip3

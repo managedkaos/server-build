@@ -10,4 +10,3 @@ aws_region=us-west-2
 repository=''
 repository_key=''
 project_path = /opt/microservice
-server_fqdn = ec2-52-34-37-70.us-west-2.compute.amazonaws.com

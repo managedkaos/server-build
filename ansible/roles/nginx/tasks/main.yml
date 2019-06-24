@@ -5,6 +5,5 @@
     state: latest
     autoclean: yes
     autoremove: yes
-    only_upgrade: yes
     update_cache: yes
     cache_valid_time: 86400

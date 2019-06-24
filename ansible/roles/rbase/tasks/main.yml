@@ -18,34 +18,5 @@
     state: latest
     autoclean: yes
     autoremove: yes
-    only_upgrade: yes
     update_cache: yes
     cache_valid_time: 86400
-
-- name: Install R libraries
-  command: >
-    Rscript --slave --no-save --no-restore-history -e "if (! ('{{ item }}' %in% installed.packages()[,'Package'])) { install.packages(pkgs='{{ item }}', repos=c('http://ftp.heanet.ie/mirrors/cran.r-project.org/')); print('Added'); } else { print('Already installed'); }"
-  register: r_result
-  failed_when: "r_result.rc != 0 or 'had non-zero exit status' in r_result.stderr"
-  changed_when: "'Added' in r_result.stdout"
-  with_items:
-    - rdrop2
-    - rJava
-    - tidyverse
-    - httr
-    - imager
-    - jsonlite
-    - dplyr
-    - zoo
-    - qdap
-    - tm
-    - NLP
-    - openNLP
-    - zoo
-    - data.table
-    - jsonlite
-    - ggplot2
-    - SnowballC
-    - RDRPOSTagger
-    - tokenizers
-    - tidytext

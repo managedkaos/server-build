@@ -10,13 +10,26 @@
     repo: deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/
     state: present
 
-- name: Install R-base
+- name: Create an R profile
+  lineinfile:
+    path: /root/.Rprofile
+    line: options(Ncpus = 6)
+    create: yes
+
+- name: Install R base and supporting libs
   apt:
-    name:
-      - r-base
-      - r-base-core
+    name: "{{ packages }}"
     state: latest
     autoclean: yes
     autoremove: yes
     update_cache: yes
     cache_valid_time: 86400
+  vars:
+    packages:
+    - r-base
+    - r-base-core
+    - build-essential
+    - libcurl4-gnutls-dev
+    - libxml2-dev
+    - libssl-dev
+    - default-jre

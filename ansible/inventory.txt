@@ -1,5 +1,5 @@
 [server]
-ec2-52-40-228-100.us-west-2.compute.amazonaws.com
+ec2-34-220-131-101.us-west-2.compute.amazonaws.com
 
 [all:vars]
 ansible_become=yes

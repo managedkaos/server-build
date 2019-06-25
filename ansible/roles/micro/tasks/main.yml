@@ -13,6 +13,8 @@
     dest: '{{ project_path }}'
   with_filetree: '../templates'
   when: item.state == 'file'
+  tags:
+    - upload
 
 - name: Upload nginx config
   template:

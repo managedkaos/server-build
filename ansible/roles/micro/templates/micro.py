@@ -14,5 +14,10 @@ def hello():
     print(err)
     return out
 
+@micro.route("/", methods=['POST'])
+def process():
+    print(request.get_data())
+    return
+
 if __name__ == "__main__" :
     micro.run()

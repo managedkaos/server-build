@@ -33,3 +33,14 @@
     - libxml2-dev
     - libssl-dev
     - default-jdk
+    - libfftw3-dev
+    - libtiff5-dev
+    - libcairo2-dev
+  tags:
+    - libraries
+
+- name: Install R packages
+  script: "{{ role_path }}/scripts/install_packages.r"
+  tags:
+    - packages
+

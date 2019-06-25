@@ -1,4 +1,4 @@
-TAGS = patch nginx rbase micro apache2
+TAGS = patch nginx rbase micro apache2 libraries packages upload
 
 playbook:
 	ansible-playbook playbook.yml --verbose
@@ -13,4 +13,3 @@ $(TAGS) :
 	ansible-playbook playbook.yml --tags=$@ --verbose
 
 .PHONY: playbook list-tasks ssh $(TAGS)
-

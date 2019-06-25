@@ -1,5 +1,5 @@
 AWS=$(VIRTUAL_ENV)/bin/aws
-STACKNAME=server-stack
+STACKNAME=cloudformation
 KEYNAME=$(STACKNAME)
 
 create-stack: $(STACKNAME).yml

@@ -89,7 +89,7 @@ Resources:
         - RegionMap
         - !Ref 'AWS::Region'
         - ami
-      InstanceType: c5.2xlarge
+      InstanceType: t2.2xlarge
       KeyName: !Ref 'KeyName'
       SecurityGroups:
         - !Ref 'EC2SecurityGroup'

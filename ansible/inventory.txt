@@ -1,12 +1,12 @@
 [server]
-ec2-34-220-131-101.us-west-2.compute.amazonaws.com
+ec2-3-82-123-159.compute-1.amazonaws.com
 
 [all:vars]
 ansible_become=yes
-ansible_private_key_file=~/.ssh/server-stack.pem
+ansible_private_key_file=~/.ssh/cloudformation.pem
 ansible_python_interpreter=/usr/bin/python3
 ansible_user=ubuntu
-aws_region=us-west-2
+aws_region=us-east-1
 repository=''
 repository_key=''
 project_path = /opt/microservice

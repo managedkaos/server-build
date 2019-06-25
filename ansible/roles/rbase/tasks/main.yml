@@ -32,4 +32,4 @@
     - libcurl4-gnutls-dev
     - libxml2-dev
     - libssl-dev
-    - default-jre
+    - default-jdk

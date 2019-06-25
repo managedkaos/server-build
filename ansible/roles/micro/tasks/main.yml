@@ -55,9 +55,14 @@
     name: nginx
     enabled: yes
     state: restarted
+  tags:
+    - restart
 
 - name: Restart apache2
   systemd:
     name: apache2
     enabled: yes
     state: restarted
+  tags:
+    - restart
+

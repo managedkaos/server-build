@@ -1,4 +1,4 @@
-TAGS = patch nginx rbase micro apache2 libraries packages upload
+TAGS = patch nginx rbase micro apache2 libraries packages upload restart
 
 playbook:
 	ansible-playbook playbook.yml --verbose

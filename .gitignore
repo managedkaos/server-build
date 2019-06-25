@@ -1,3 +1,5 @@
+ansible/roles/micro/templates/charm*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -71,7 +71,7 @@ def main():
             ),
             Tags=[{'Key':'Name', 'Value':Ref('AWS::StackName')},],
             ImageId=FindInMap('RegionMap', Ref('AWS::Region'), 'ami'),
-            InstanceType='t3.micro',
+            InstanceType='c5.2xlarge',
             KeyName=Ref(keyname_param),
             SecurityGroups=[Ref(ec2_security_group)],
             UserData=Base64(
